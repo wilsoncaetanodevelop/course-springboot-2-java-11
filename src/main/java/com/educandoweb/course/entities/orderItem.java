@@ -9,7 +9,6 @@ import javax.persistence.Table;
 import com.educandoweb.course.entities.pk.OrderItemPk;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "tb_order_item")
 public class orderItem implements Serializable {
@@ -18,7 +17,7 @@ public class orderItem implements Serializable {
 
 	@EmbeddedId
 	private OrderItemPk id = new OrderItemPk();
-	
+
 	private Integer quantite;
 	private Double price;
 
