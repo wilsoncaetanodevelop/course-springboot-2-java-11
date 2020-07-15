@@ -13,7 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,29 +24,28 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
+	private String name;
 	private String description;
 	private Double price;
-	private String impUrl;
+	private String imgUrl;
 
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
 	@OneToMany(mappedBy = "id.product")
-	private Set<orderItem> items = new HashSet<>();
+	private Set<OrderItem> items = new HashSet<>();
 
 	public Product() {
-
 	}
 
-	public Product(Long id, String nome, String description, Double price, String impUrl) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.impUrl = impUrl;
+		this.imgUrl = imgUrl;
 	}
 
 	public Long getId() {
@@ -58,12 +56,12 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -82,12 +80,12 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
-	public String getImpUrl() {
-		return impUrl;
+	public String getImgUrl() {
+		return imgUrl;
 	}
 
-	public void setImpUrl(String impUrl) {
-		this.impUrl = impUrl;
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 	public Set<Category> getCategories() {
@@ -97,7 +95,7 @@ public class Product implements Serializable {
 	@JsonIgnore
 	public Set<Order> getOrders() {
 		Set<Order> set = new HashSet<>();
-		for (orderItem x : items) {
+		for (OrderItem x : items) {
 			set.add(x.getOrder());
 		}
 		return set;
